@@ -57,12 +57,17 @@
             $('#btn1').removeClass('active');
             $('#btn2').addClass('active');
         });
+        $('#btn1').click(function(){
+            $('#main').animate({'left': '0'});
+            $('#btn2').removeClass('active');
+            $('#btn1').addClass('active');
+        });
         $('#stopbtn').click(function(){
             $('#startbtn img').show();
             $('#stopbtn').hide();
             var videoEl = document.getElementById('preview');
             stream = videoEl.srcObject;
-            tracks = stream.getTracks();
+            tracks = stream.tracks;
             tracks.forEach(function(track){
                 track.stop();
             });
@@ -79,7 +84,7 @@
             Instascan.Camera.getCameras().then(function(cameras){
                 if(cameras.length>0){
                     scanner.start(cameras[0]);
-                    $('[name=options]').on('change',function(){
+                    $('[name="options"]').on('change',function(){
                         if($(this).val()==1){
                             if(cameras[0]!=""){
                                 scanner.start(cameras[0]);
